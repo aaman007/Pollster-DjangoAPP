@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %} Poll Result {% endblock %}
+
+{% block content %}
+    <h1 class="text-center mb-3"> {{question.question_text}} </h1>
+
+    {% if error_message %}
+        <p class="alert alert-danger">
+            <strong>{{error_message}}</strong>
+        </p>
+    {% endif %}
+    <ul class="list-group mb-5">
+        {% for choice in choices %}
+            <li class="list-group-item">
+                {{choice.choice_text}}
+                <span class="badge badge-success float-right">{{choice.votes}} vote{{ choice.votes|pluralize }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+    <a class="btn btn-secondary btn-sm mb-3" href="{% url 'polls:index' %}"> Back To Polls</a>
+    <a class="btn btn-dark btn-sm mb-3" href="{% url 'polls:detail' question.id %}"> Vote Again?</a>
+
+{% endblock %}
